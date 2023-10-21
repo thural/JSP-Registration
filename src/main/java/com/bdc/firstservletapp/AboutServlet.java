@@ -20,8 +20,6 @@ public class AboutServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
 
-        System.out.println("get method has been called on about page");
-
         // Hello
         PrintWriter out = response.getWriter();
         out.println(message);

@@ -11,13 +11,11 @@ public class HelloServlet extends HttpServlet {
     private String message;
 
     public void init() {
-        message = "Hello Servlet!";
+        message = "this page is generated within the servlet";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        System.out.println("hello-servlet page has been requested");
 
         // Hello
         PrintWriter out = response.getWriter();

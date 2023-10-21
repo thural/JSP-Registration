@@ -1,5 +1,6 @@
 package com.bdc.firstservletapp;
 
+import com.bdc.firstservletapp.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,16 +16,24 @@ public class SignupServlet extends HttpServlet {
     public void init() {}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html");
-        System.out.println("get method has been called on signup page");
-
         getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
-
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("SignupServlet POST method is called");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean emailAlreadyExists = false;
+        String name = request.getParameter("first_name");
+        String psw = request.getParameter("psw");
+        Integer age = 28;
+
+
+        if(!emailAlreadyExists){
+            request.setAttribute("user", new User(name, age, psw));
+            getServletContext().getRequestDispatcher("/profile").forward(request,response);
+        } else {
+            request.setAttribute("error", "a user with this email already exists");
+            getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
+        }
     }
 
     public void destroy() {
