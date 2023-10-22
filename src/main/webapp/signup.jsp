@@ -55,21 +55,21 @@
                     </div>
                     <div>
                         <label for="phoneNumber">PHONE NUMBER</label>
-                        <input type="tel" id="phoneNumber" placeholder="+49 500 400 30">
+                        <input type="tel" name="phone_number" id="phoneNumber" placeholder="+49 500 400 30">
                     </div>
                 </div>
 
                 <div class="password-area">
                     <div>
-                        <label for="psw">PASSWORD</label>
+                        <label for="password">PASSWORD</label>
                         <label>
-                            <input type="password" placeholder="enter password" name="psw" required>
+                            <input type="password" id="password" placeholder="enter password" name="password" required>
                         </label>
                     </div>
                     <div>
-                        <label for="psw-repeat">REPEAT PASSWORD</label>
+                        <label for="password-repeat">REPEAT PASSWORD</label>
                         <label>
-                            <input type="password" placeholder="repeat password" name="psw-repeat" required>
+                            <input type="password" id="password-repeat" placeholder="repeat password" name="password-repeat" required>
                         </label>
                     </div>
                 </div>

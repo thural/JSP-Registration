@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" href="./signup-style.css">
+    <link rel="stylesheet" href="./login-style.css">
 </head>
 <body>
 <div class="wrapper">
@@ -43,9 +43,9 @@
 
                 <div class="password-area">
                     <div>
-                        <label for="psw">PASSWORD</label>
+                        <label for="password">PASSWORD</label>
                         <label>
-                            <input type="password" placeholder="enter password" name="psw" required>
+                            <input type="password" id="password" placeholder="enter password" name="password" required>
                         </label>
                     </div>
                 </div>

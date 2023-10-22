@@ -19,7 +19,7 @@
         <div class="info flex">
             <img src="./icons/bell-ring-outline.svg" alt="">
             <span class="avatar"></span>
-            <h3>${user.name}</h3>
+            <h3>${user.firstName}</h3>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
             <div>
                 <p>${error}</p>
                 <p>Hi there,</p>
-                <h2>${user.name}</h2>
+                <h2>${user.firstName}</h2>
             </div>
         </div>
         <div class="buttons">
