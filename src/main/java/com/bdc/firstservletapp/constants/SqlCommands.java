@@ -16,7 +16,7 @@ public final class SqlCommands {
         // Delete
         public final static String DELETE_BY_ID = "DELETE FROM user WHERE id=?";
 
-        public final static String CHECK_PASSWORD = "SELECT EXISTS(SELECT * FROM user WHERE email=? AND password = ?)";
+        public final static String CHECK_PASSWORD = "SELECT * FROM user WHERE email=? AND password = ?";
 
         public final static String GET_ONE_RECORD = "SELECT * FROM user WHERE email=? AND password =?";
     }

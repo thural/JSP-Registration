@@ -62,9 +62,11 @@ public class UserServiceImpl extends DatabaseConnection implements UserService {
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setObject(6, LocalDateTime.now());
             preparedStatement.setObject(7, LocalDateTime.now());
-            return preparedStatement.execute();
+            return preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
@@ -102,7 +104,11 @@ public class UserServiceImpl extends DatabaseConnection implements UserService {
             PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.UserCommands.CHECK_PASSWORD);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            return preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            boolean execResult = resultSet.next();
+            if (execResult) System.out.println("authentication was success");
+            else System.out.println("authentication was failed");
+            return execResult;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }

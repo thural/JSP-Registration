@@ -35,27 +35,19 @@ public class SignupServlet extends HttpServlet {
         User user = new User(firstName, lastName, email, phoneNumber, password);
         // insert fields of user object as a new record into the table
         // and store result of the execute() operation
+        boolean registerSuccess = userService.add(user);
 
-        // store the new user object in the request before forwarding,
-        // so it can be accessed by profile servlet and page
-        request.setAttribute("user", user);
-        getServletContext().getRequestDispatcher("/profile.jsp").forward(request,response);
-
-        // conditional forwarding, .. commented the code beause it has a bug yet to be fixed
-//        boolean registerSuccess = userService.add(user);
-//
-//
-//        if(registerSuccess){
-//            System.out.println("registration was successful");
-//            // store the new user object in the request before forwarding,
-//            // so it can be accessed by profile servlet and page
-//            request.setAttribute("user", user);
-//            getServletContext().getRequestDispatcher("/profile.jsp").forward(request,response);
-//        } else {
-//            // forward it back to the signup page with the error message
-//            request.setAttribute("error", "a user with this email already exists");
-//            getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
-//        }
+        if(registerSuccess){
+            System.out.println("registration was successful");
+            // store the new user object in the request before forwarding,
+            // so it can be accessed by profile servlet and page
+            request.setAttribute("user", user);
+            getServletContext().getRequestDispatcher("/profile.jsp").forward(request,response);
+        } else {
+            // forward it back to the signup page with the error message
+            request.setAttribute("error", "a user with this email already exists");
+            getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
+        }
     }
 
     public void destroy() {
