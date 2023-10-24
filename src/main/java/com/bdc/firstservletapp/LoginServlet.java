@@ -40,7 +40,6 @@ public class LoginServlet extends HttpServlet {
             // forward request directly to profile page, instead of /profile route,
             // otherwise a post request or doPost() will be triggered on profileServlet
             getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
-            System.out.println("auth block is still running ...");
         } else {
             System.out.println("auth was failed");
             // forward back to the login page with the error message
@@ -50,6 +49,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     public void destroy() {
-        System.out.println("signup servlet has been destroyed");
+        System.out.println("login servlet has been destroyed");
     }
 }

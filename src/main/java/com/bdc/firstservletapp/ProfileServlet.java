@@ -39,7 +39,7 @@ public class ProfileServlet extends HttpServlet {
         // display a warning message on the page
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
-        out.println("you've not wrote functionality for POST method of this route");
+        out.println("you've not written functionality for POST method of this route");
     }
 
     public void destroy() {

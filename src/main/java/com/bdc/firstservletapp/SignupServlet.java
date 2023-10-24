@@ -46,6 +46,10 @@ public class SignupServlet extends HttpServlet {
         } else {
             // forward it back to the signup page with the error message
             request.setAttribute("error", "a user with this email already exists");
+            // pass field values to the request to persist form data during forwarding
+            request.setAttribute("first_name", firstName);
+            request.setAttribute("last_name", lastName);
+            request.setAttribute("phone_number", phoneNumber);
             getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
         }
     }

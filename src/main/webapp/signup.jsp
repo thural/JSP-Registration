@@ -40,11 +40,11 @@
                 <div class="name-area">
                     <div>
                         <label for="firstName">FIRST NAME</label>
-                        <input type="text" id="firstName" name="first_name" placeholder="enter your name" required>
+                        <input type="text" id="firstName" name="first_name" placeholder="enter your name" value = "${first_name}" required>
                     </div>
                     <div>
                         <label for="lastName">LAST NAME</label>
-                        <input type="text" id="lastName" name="last_name" placeholder="enter your surname" required>
+                        <input type="text" id="lastName" name="last_name" placeholder="enter your surname" value = "${last_name}" required>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                     </div>
                     <div>
                         <label for="phoneNumber">PHONE NUMBER</label>
-                        <input type="tel" name="phone_number" id="phoneNumber" placeholder="+49 500 400 30">
+                        <input type="tel" name="phone_number" id="phoneNumber" placeholder="+49 500 400 30" value="${phone_number}" required>
                     </div>
                 </div>
 
