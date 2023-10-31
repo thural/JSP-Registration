@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" href="./login-style.css">
+<%--    <link rel="stylesheet" type="text/css" href="./login-style.css">--%>
+    <style>
+        <%@ include file="login-style.css"%>
+    </style>
 </head>
 <body>
 <div class="wrapper">
@@ -30,9 +33,25 @@
         <div class="forms">
             <h1>Let's do this!</h1>
 
-            <h3 style="color: red">${error}</h3>
+<%--            <% if (request.getAttribute("error")!= null) {%>--%>
+<%--                <script>alert("${requestScope.error.message}")</script>--%>
+<%--            <%} %>--%>
 
-            <form action="/login" method="post" class="form-area">
+            <% if (request.getAttribute("error")!= null) {%>
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <h2 id="popup-title">${requestScope.error.getTitle()}</h2>
+                    <p id="popup-message">${requestScope.error.getMessage()}</p>
+                    <button onclick="document.getElementById('popup').style.display='none'">
+                        <span class="close">close</span>
+                    </button>
+                </div>
+            </div>
+            <%} %>
+
+
+
+            <form action="#" method="post" class="form-area">
 
                 <div class="contact-area">
                     <div>

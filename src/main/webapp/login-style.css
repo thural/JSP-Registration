@@ -93,7 +93,38 @@ input:focus {
     outline: none;
 }
 
+.headers h1:last-child {
+    margin-top: 1.5vw;
+}
+
+.popup{
+    gap: 0;
+    top: 50%;
+    left: 50%;
+    color: black;
+    width: 320px;
+    margin: auto;
+    display: flex;
+    padding: 1rem;
+    position: fixed;
+    flex-flow: column nowrap;
+    transform: translate(-50%, -50%);
+    border-radius: 1em;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 10px 10px 14px 1px rgba(72, 72, 72, 0.3);
+}
+
 button {
+    height: auto;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: rgb(255, 47, 47);
+    color: white;
+    border: none rgb(255, 47, 47);
+    padding: 8px 8px;
+    border-radius: 5px;
     width: fit-content;
     height: auto;
     text-align: center;
@@ -105,8 +136,4 @@ button {
     padding: 8px 8px;
     border-radius: 5px;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
-}
-
-.headers h1:last-child {
-    margin-top: 1.5vw;
 }
