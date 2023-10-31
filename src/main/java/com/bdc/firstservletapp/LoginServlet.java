@@ -1,5 +1,6 @@
 package com.bdc.firstservletapp;
 
+import com.bdc.firstservletapp.beans.ErrorBean;
 import com.bdc.firstservletapp.models.User;
 import com.bdc.firstservletapp.service_implementations.UserServiceImpl;
 import com.bdc.firstservletapp.services.UserService;
@@ -22,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("doPost method was called in login servlet");
         // get parameters from POST request made on submission of login form on the login page
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -43,7 +45,9 @@ public class LoginServlet extends HttpServlet {
         } else {
             System.out.println("auth was failed");
             // forward back to the login page with the error message
-            request.setAttribute("error", "invalid credentials please try again");
+            ErrorBean errObj = new ErrorBean("login error", "invalid credentials please try again");
+            System.out.println("error object: " + errObj);
+            request.setAttribute("error", errObj);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }

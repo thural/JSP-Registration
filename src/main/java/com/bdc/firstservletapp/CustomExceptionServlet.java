@@ -7,17 +7,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "ErrorExampleServlet", value = "/exception")
-public class ErrorExampleServlet extends HttpServlet {
+public class CustomExceptionServlet extends HttpServlet {
 
     public void init() {
         System.out.println("ErrorExampleServlet was initialized");
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        throw new NullPointerException();
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        throw new NullPointerException();
+//        throw new ArithmeticException();
+        throw new ServletException("GET method is not supported.");
     }
 
     @Override
