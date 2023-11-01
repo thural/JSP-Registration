@@ -1,156 +1,163 @@
 package com.bdc.firstservletapp.service_implementations;
 
-import com.bdc.firstservletapp.constants.SqlCommands;
 import com.bdc.firstservletapp.models.User;
 import com.bdc.firstservletapp.services.UserService;
-import com.bdc.firstservletapp.connection.DatabaseConnection;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import utils.SessionFactoryProvider;
 
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserServiceImpl extends DatabaseConnection implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        try (Connection connection = connection()) {
-            // prepare a database statement using a pre-prepared command
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(SqlCommands.UserCommands.SELECT_ALL);
-            // execute the prepared statement on database
-            preparedStatement.execute();
-            // create an array list to be populated with objects created using
-            // returned values by the resultSet
-            List<User> userList = new ArrayList<>();
-
-            // get resultSet from the database statement
-            ResultSet resultSet = preparedStatement.getResultSet();
-
-            // create objects and set their fields using data from current resultSet
-            // and add objects to the list
-            while (resultSet.next()) {
-                // create an object
-                User user = new User();
-                // populate the object fields using data from current resultSet
-                user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPhoneNumber(resultSet.getString("phone_number"));
-                user.setPassword(resultSet.getString("password"));
-                user.setCreateDate(resultSet.getObject("create_date", LocalDateTime.class));
-                user.setUpdateDate(resultSet.getObject("update_date", LocalDateTime.class));
-                // add current object to the list
-                userList.add(user);
-            }
-            // return the populated list
-            return userList;
-        } catch (SQLException e) {
+        List<User> userList;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            Transaction transaction = session.beginTransaction();
+            // select and list all rows of the User table
+            String hql = "FROM User";
+            Query query = session.createQuery(hql);
+            // store the list
+            userList = query.list();
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+        return userList;
     }
 
     @Override
     public boolean add(User user) {
-        try (Connection connection = connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.UserCommands.INSERT_INTO);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPhoneNumber());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setObject(6, LocalDateTime.now());
-            preparedStatement.setObject(7, LocalDateTime.now());
-            return preparedStatement.executeUpdate() > 0;
-
-        } catch (SQLException e) {
+        boolean result = false;
+        Transaction transaction = null;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the user objects
+            session.save(user);
+            // store the result
+            result = true;
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
+            // rollback in case transaction failure
+            if (transaction != null) transaction.rollback();
             System.out.println(e.getMessage());
-            return false;
         }
+        return result;
     }
 
     @Override
     public boolean update(User user) {
-        try (Connection connection = connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.UserCommands.UPDATE_SET);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPhoneNumber());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setObject(6, LocalDateTime.now());
-            preparedStatement.setLong(5, user.getId());
-            return preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+        boolean result = false;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            Transaction transaction = session.beginTransaction();
+            // save persisten object to db
+            session.saveOrUpdate(user);
+            // store the result
+            result = true;
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        return result;
     }
 
     @Override
     public boolean deleteById(long id) {
-        try (Connection connection = connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.UserCommands.DELETE_BY_ID);
-            preparedStatement.setLong(1, id);
-            return preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+        boolean result = false;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            Transaction transaction = session.beginTransaction();
+            // get the user from db with the specified id
+            User user = session.get(User.class, id);
+            // if user exists delete the user
+            if (user != null) {
+                session.remove(user);
+                // store the result
+                result = true;
+            }
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        return result;
     }
 
     @Override
-    public boolean authenticate(String email, String password){
-        try (Connection connection = connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.UserCommands.CHECK_PASSWORD);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            boolean execResult = resultSet.next();
-            if (execResult) System.out.println("authentication was success");
-            else System.out.println("authentication was failed");
-            return execResult;
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+    public boolean authenticate(String email, String password) {
+        boolean result = false;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            Transaction transaction = session.beginTransaction();
+            // find the user using HQL matching the credentials
+            String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
+            Query query = session.createQuery(hql);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            List results = query.list();
+            // store the execution result
+            result = !results.isEmpty();
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        return result;
     }
 
     @Override
-    public User getOne(String email, String password){
-        try (Connection connection = connection()) {
-            // prepare a database statement using a pre-prepared command
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(SqlCommands.UserCommands.GET_ONE_RECORD);
-            // execute the prepared statement on database
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-            boolean isExecutionSuccess = preparedStatement.execute();
-            // get resultSet from the database statement
-            ResultSet resultSet = preparedStatement.getResultSet();
-            // get the first result by calling next(),
-            // otherwise you'll get "before start" exception even if DB query returns a single match
-            resultSet.next();
-
-            // nice to have some console output for easier debugging during development
-            // should be removed at deployment otherwise its considered a major security risk
-            if (isExecutionSuccess)
-                System.out.println("DB query execution on getOne() of UserService was successful");
-            else System.out.println("DB query execution on getOne() of UserService was failed");
-
-            User user = new User();
-            // populate the user object fields using data from current DB resultSet
-            user.setId(resultSet.getLong("id"));
-            user.setFirstName(resultSet.getString("first_name"));
-            user.setLastName(resultSet.getString("last_name"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPhoneNumber(resultSet.getString("phone_number"));
-            user.setPassword(resultSet.getString("password"));
-            user.setCreateDate(resultSet.getObject("create_date", LocalDateTime.class));
-            user.setUpdateDate(resultSet.getObject("update_date", LocalDateTime.class));
-
-            // return the populated object
-            return user;
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+    public User getOne(String email, String password) {
+        User user = null;
+        try {
+            // get session factory
+            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
+            Session session = sessionFactory.openSession();
+            // start a transaction
+            Transaction transaction = session.beginTransaction();
+            // find the matching user using HQL query
+            String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
+            Query query = session.createQuery(hql);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            // get list of the result
+            List results = query.list();
+            // store the user from the list
+            user = (User) results.get(0);
+            // commit transaction
+            transaction.commit();
+            sessionFactory.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        return user;
     }
 }

@@ -1,56 +1,48 @@
 package com.bdc.firstservletapp.models;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Objects;
+
 @Entity
-public class User implements Serializable {
-    @Id
+@Table(name = "user", schema = "bdc_course")
+public class User {
+   public User(){
+        this.createDate = Timestamp.valueOf(LocalDateTime.now());
+        this.updateDate = Timestamp.valueOf(LocalDateTime.now());
+    }
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id")
     private long id;
-    @Column (name = "first_name")
+    @Basic
+    @Column(name = "first_name")
     private String firstName;
-    @Column (name = "last_name")
+    @Basic
+    @Column(name = "last_name")
     private String lastName;
+    @Basic
+    @Column(name = "email")
     private String email;
-    @Column (name = "phone_number")
+    @Basic
+    @Column(name = "phone_number")
     private String phoneNumber;
+    @Basic
+    @Column(name = "password")
     private String password;
-    @Column (name = "create_date")
-    private LocalDateTime createDate;
-    @Column (name = "update_date")
-    private LocalDateTime updateDate;
+    @Basic
+    @Column(name = "create_date")
+    private Timestamp createDate;
+    @Basic
+    @Column(name = "update_date")
+    private Timestamp updateDate;
 
-    // an empty constructor is a must for hibernate to work
-    public User() {}
-
-    public User(String guestName) {
-        this.id = 0;
-        this.firstName = guestName;
-        this.lastName = guestName;
-        this.email = guestName+ "@service.com";
-        this.phoneNumber = "+00000000";
-        this.password = guestName;
-        this.createDate = LocalDateTime.now();
-        this.updateDate = LocalDateTime.now();
-    }
-
-    public User(String firstName, String lastName, String email, String phoneNumber, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.createDate = LocalDateTime.now();
-        this.updateDate = LocalDateTime.now();
-    }
-
-    public long getId(){
+    public long getId() {
         return id;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -94,33 +86,32 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public LocalDateTime getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
-    public LocalDateTime getUpdateDate() {
+    public Timestamp getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(LocalDateTime updateDate) {
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User that = (User) o;
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(password, that.password) && Objects.equals(createDate, that.createDate) && Objects.equals(updateDate, that.updateDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, phoneNumber, password, createDate, updateDate);
     }
 }
