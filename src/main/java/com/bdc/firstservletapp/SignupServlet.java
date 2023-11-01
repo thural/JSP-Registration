@@ -32,7 +32,13 @@ public class SignupServlet extends HttpServlet {
         // instantiate a user service for DB queries
         UserService userService = new UserServiceImpl();
         // create a user object using parameter values of the form
-        User user = new User(firstName, lastName, email, phoneNumber, password);
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setPassword(password);
+
         // insert fields of user object as a new record into the table
         // and store result of the execute() operation
         boolean registerSuccess = userService.add(user);
