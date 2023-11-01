@@ -1,25 +1,37 @@
 package com.bdc.firstservletapp.models;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+@Entity
 public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column (name = "first_name")
     private String firstName;
+    @Column (name = "last_name")
     private String lastName;
     private String email;
+    @Column (name = "phone_number")
     private String phoneNumber;
     private String password;
+    @Column (name = "create_date")
     private LocalDateTime createDate;
+    @Column (name = "update_date")
     private LocalDateTime updateDate;
 
-    public User() {
+    // an empty constructor is a must for hibernate to work
+    public User() {}
+
+    public User(String guestName) {
         this.id = 0;
-        this.firstName = "guest";
-        this.lastName = "guest";
-        this.email = "guest@service.com";
+        this.firstName = guestName;
+        this.lastName = guestName;
+        this.email = guestName+ "@service.com";
         this.phoneNumber = "+00000000";
-        this.password = "guest";
+        this.password = guestName;
         this.createDate = LocalDateTime.now();
         this.updateDate = LocalDateTime.now();
     }
