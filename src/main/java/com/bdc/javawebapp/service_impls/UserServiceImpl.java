@@ -1,7 +1,7 @@
-package com.bdc.firstservletapp.service_implementations;
+package com.bdc.javawebapp.service_impls;
 
-import com.bdc.firstservletapp.models.User;
-import com.bdc.firstservletapp.services.UserService;
+import com.bdc.javawebapp.models.User;
+import com.bdc.javawebapp.services.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

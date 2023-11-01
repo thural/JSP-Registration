@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp.models;
+package com.bdc.javawebapp.models;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;

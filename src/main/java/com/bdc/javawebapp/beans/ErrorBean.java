@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp.beans;
+package com.bdc.javawebapp.beans;
 
 public class ErrorBean {
     public String title;

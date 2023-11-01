@@ -4,7 +4,7 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
-        <class>com.bdc.firstservletapp.models.User</class>
+        <class>com.bdc.javawebapp.models.User</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/bdc_course"/>
             <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

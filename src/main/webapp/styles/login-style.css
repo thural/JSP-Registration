@@ -18,7 +18,7 @@ body {
     display: block;
     height:auto;
     width: 80vw;
-    background-image: url("./resources/johannes-andersson-unsplash.jpg");
+    background-image: url("../resources/images/johannes-andersson-unsplash.jpg");
     background-size: cover;
     background-clip: border-box;
 

@@ -1,6 +1,6 @@
-package com.bdc.firstservletapp;
+package com.bdc.javawebapp.servlets;
 
-import com.bdc.firstservletapp.models.User;
+import com.bdc.javawebapp.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,6 +1,6 @@
-package com.bdc.firstservletapp.services;
+package com.bdc.javawebapp.services;
 
-import com.bdc.firstservletapp.models.User;
+import com.bdc.javawebapp.models.User;
 
 import java.util.List;
 

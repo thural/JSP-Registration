@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp;
+package com.bdc.javawebapp.servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,6 +27,6 @@ public class CustomExceptionServlet extends HttpServlet {
     }
 
     public void destroy() {
-        System.out.println("about servlet has been destroyed");
+        System.out.println("error servlet has been destroyed");
     }
 }

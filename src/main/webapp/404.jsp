@@ -11,6 +11,6 @@
     <title>Error</title>
 </head>
 <body>
-<img src="resources/images/404.png" alt="error 404, page not found">
+<img src="assets/images/404.png" alt="error 404, page not found">
 </body>
 </html>

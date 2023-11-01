@@ -1,9 +1,12 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.bdc.javawebapp.models.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <title>Profile</title>
-    <link rel="stylesheet" href="./profile-style.css">
+    <link rel="stylesheet" href="styles/profile-style.css">
 </head>
 
 <body>
@@ -68,9 +71,13 @@
     <div class="main-content">
         <h2>Your Projects</h2>
         <div>
-            <% for (int i = 0; i < 5; i++) {%>
+            <%
+                List userList = (ArrayList) request.getAttribute("userList");
+                for (int i = 0; i < userList.size(); i++) {
+                User user = (User) userList.get(i);
+            %>
             <div class="card repo">
-                <h3>Super cool project</h3>
+                <h3><%=(user.getFirstName())%></h3>
                 <p>
                     is simply dummy text of the printing and typesetting industry.
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s

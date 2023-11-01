@@ -8,7 +8,7 @@
     <title>Login Form</title>
 <%--    <link rel="stylesheet" type="text/css" href="./login-style.css">--%>
     <style>
-        <%@ include file="login-style.css"%>
+        <%@ include file="styles/login-style.css"%>
     </style>
 </head>
 <body>
