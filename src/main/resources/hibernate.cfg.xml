@@ -10,6 +10,8 @@
         <property name="connection.password">@dolphin888</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- make sure every model/entity classes are mapped as below: -->
         <mapping class="com.bdc.firstservletapp.models.User"></mapping>
 
         <!-- DB schema will be updated if needed -->

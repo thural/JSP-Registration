@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+<!--    register and map the ExceptionHandler servlet-->
     <servlet>
         <servlet-name>ExceptionHandler</servlet-name>
         <servlet-class>com.bdc.firstservletapp.servlets.ExceptionHandlerServlet</servlet-class>
@@ -11,16 +12,21 @@
         <servlet-name>ExceptionHandler</servlet-name>
         <url-pattern>/ExceptionHandler</url-pattern>
     </servlet-mapping>
+<!--    forward servlet type exceptions to ExceptionHandler servlet-->
     <error-page>
-        <exception-type>java.lang.NullPointerException</exception-type>
+        <exception-type>jakarta.servlet.ServletException</exception-type>
+        <location>/ExceptionHandler</location>
+    </error-page>
+
+<!--    forward java type exceptions to 500.jsp page-->
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
         <location>/500.jsp</location>
     </error-page>
+
+<!--    forward 404 errors to 404.jsp page-->
     <error-page>
         <error-code>404</error-code>
         <location>/404.jsp</location>
-    </error-page>
-    <error-page>
-        <exception-type>java.lang.ArithmeticException</exception-type>
-        <location>/ExceptionHandler</location>
     </error-page>
 </web-app>

@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         List<User> userList;
         try {
-            // get session factory
+            // get session factory from the custom util package
             SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
             Session session = sessionFactory.openSession();
             // start a transaction
