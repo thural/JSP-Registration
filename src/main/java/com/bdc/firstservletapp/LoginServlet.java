@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -39,6 +40,10 @@ public class LoginServlet extends HttpServlet {
             User currentUser = userService.getOne(email, password);
             // pass the user object to the request before forwarding to the profile page
             request.setAttribute("user", currentUser);
+            // get User list from services
+            List <User> userList = userService.getAll();
+            // pass the user list to the request
+            request.setAttribute("userList", userList);
             // forward request directly to profile page, instead of /profile route,
             // otherwise a post request or doPost() will be triggered on profileServlet
             getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
