@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp;
+package com.bdc.firstservletapp.servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

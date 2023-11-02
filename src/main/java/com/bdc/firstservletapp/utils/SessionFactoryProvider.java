@@ -1,4 +1,4 @@
-package utils;
+package com.bdc.firstservletapp.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

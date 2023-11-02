@@ -6,7 +6,7 @@
 <html>
 <head lang="en">
     <title>Profile</title>
-    <link rel="stylesheet" href="./profile-style.css">
+    <link rel="stylesheet" href="assets/styles/profile-style.css">
 </head>
 
 <body>

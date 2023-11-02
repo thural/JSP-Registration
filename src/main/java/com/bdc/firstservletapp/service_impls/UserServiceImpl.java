@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp.service_implementations;
+package com.bdc.firstservletapp.service_impls;
 
 import com.bdc.firstservletapp.models.User;
 import com.bdc.firstservletapp.services.UserService;
@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import utils.SessionFactoryProvider;
+import com.bdc.firstservletapp.utils.SessionFactoryProvider;
 
 import java.util.List;
 

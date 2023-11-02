@@ -5,7 +5,7 @@
          version="5.0">
     <servlet>
         <servlet-name>ExceptionHandler</servlet-name>
-        <servlet-class>com.bdc.firstservletapp.ExceptionHandlerServlet</servlet-class>
+        <servlet-class>com.bdc.firstservletapp.servlets.ExceptionHandlerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ExceptionHandler</servlet-name>

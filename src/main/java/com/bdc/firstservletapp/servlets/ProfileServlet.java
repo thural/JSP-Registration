@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp;
+package com.bdc.firstservletapp.servlets;
 
 import com.bdc.firstservletapp.models.User;
 import jakarta.servlet.ServletException;

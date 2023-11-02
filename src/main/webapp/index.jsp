@@ -16,9 +16,7 @@
 </h1>
 <br/>
 <div class="navigation">
-    <a href="hello-servlet">Hello Servlet</a>
     <a href="signup">Signup</a>
-    <a href="about">About</a>
 </div>
 </body>
 </html>
