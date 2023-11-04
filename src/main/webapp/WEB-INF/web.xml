@@ -19,10 +19,10 @@
     </error-page>
 
 <!--    forward java type exceptions to 500.jsp page-->
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/500.jsp</location>
-    </error-page>
+<!--    <error-page>-->
+<!--        <exception-type>java.lang.Exception</exception-type>-->
+<!--        <location>/500.jsp</location>-->
+<!--    </error-page>-->
 
 <!--    forward 404 errors to 404.jsp page-->
     <error-page>

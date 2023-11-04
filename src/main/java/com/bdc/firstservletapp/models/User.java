@@ -1,6 +1,7 @@
 package com.bdc.firstservletapp.models;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -8,10 +9,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "bdc_course")
 public class User {
-   public User(){
+    public User() {
         this.createDate = Timestamp.valueOf(LocalDateTime.now());
         this.updateDate = Timestamp.valueOf(LocalDateTime.now());
     }
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")

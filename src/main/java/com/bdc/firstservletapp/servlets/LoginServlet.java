@@ -16,7 +16,8 @@ import java.util.List;
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
-    public void init() {}
+    public void init() {
+    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
@@ -34,14 +35,14 @@ public class LoginServlet extends HttpServlet {
         // and store result of the execute() operation
         boolean isAuthSuccess = userService.authenticate(email, password);
 
-        if(isAuthSuccess){
+        if (isAuthSuccess) {
             System.out.println("auth was successful");
             // pull record of the user fromDB and create a user object using that data
             User currentUser = userService.getOne(email, password);
             // pass the user object to the request before forwarding to the profile page
             request.setAttribute("user", currentUser);
             // get User list from services
-            List <User> userList = userService.getAll();
+            List<User> userList = userService.getAll();
             // pass the user list to the request
             request.setAttribute("userList", userList);
             // forward request directly to profile page, instead of /profile route,

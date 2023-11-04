@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-<%--    <link rel="stylesheet" type="text/css" href="./login-style.css">--%>
+    <script src="./assets/scripts/script.js"></script>
     <style>
-        <%@ include file="assets/styles/login-style.css"%>
+        <%@ include file="assets/styles/login-style.css" %>
     </style>
 </head>
 <body>
@@ -16,7 +16,9 @@
 
     <div class="left-section">
         <div class="image-credit">
-            Photo by <a href="https://unsplash.com/@thejoltjoker?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Johannes Andersson</a> on
+            Photo by <a
+                href="https://unsplash.com/@thejoltjoker?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Johannes
+            Andersson</a> on
             <a href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
         </div>
     </div>
@@ -33,11 +35,7 @@
         <div class="forms">
             <h1>Let's do this!</h1>
 
-<%--            <% if (request.getAttribute("error")!= null) {%>--%>
-<%--                <script>alert("${requestScope.error.message}")</script>--%>
-<%--            <%} %>--%>
-
-            <% if (request.getAttribute("error")!= null) {%>
+            <% if (request.getAttribute("error") != null) {%>
             <div id="popup" class="popup">
                 <div class="popup-content">
                     <h2 id="popup-title">${requestScope.error.getTitle()}</h2>
@@ -48,8 +46,6 @@
                 </div>
             </div>
             <%} %>
-
-
 
             <form action="#" method="post" class="form-area">
 
@@ -73,10 +69,8 @@
             </form>
         </div>
 
-        <div>
-            Don't have an account? <a href="/signup" style="color: red; font-size: 16px;font-weight: 500;">Signup</a>
+        <div>Don't have an account? <a href="/signup" style="color: red; font-size: 16px;font-weight: 500;">Signup</a>
         </div>
-
     </div>
 </div>
 </body>

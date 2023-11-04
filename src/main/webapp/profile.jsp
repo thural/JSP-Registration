@@ -77,7 +77,8 @@
                     User user = (User) userList.get(i);
             %>
             <div class="card repo">
-                <h3><%=(user.getFirstName())%></h3>
+                <h3><%=(user.getFirstName())%>
+                </h3>
                 <p>
                     is simply dummy text of the printing and typesetting industry.
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s

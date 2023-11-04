@@ -12,14 +12,16 @@ body {
     min-height: 100vh;
 }
 
+
 .left-section {
     position: relative;
     display: block;
     height:auto;
     width: 80vw;
-    background-image: url("/assets/images/johannes-andersson-unsplash.jpg");
+    background-image: url("./resources/johannes-andersson-unsplash.jpg");
     background-size: cover;
     background-clip: border-box;
+
 }
 
 .image-credit {
@@ -47,40 +49,30 @@ a {
     gap: 16px;
 }
 
-.form-area {
+.radio-item{
     display: flex;
-    flex-direction: column;
 }
 
-.form-area > * {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1vw;
-}
-
-.form-area div div {
-    display: flex;
-    flex-direction: column;
-    margin-right: 64px;
-    margin-bottom: 16px;
-}
 
 input {
-    width: 250px;
-    min-width: 100px;
-    height: 28px;
-    border: 1px solid rgb(224, 224, 224);
+    margin: 8px 8px 8px 16px;
+    min-width: 18px;
+    height: 18px;
+    border: 1px solid rgb(50, 50, 50);
     border-radius: 4px;
     padding-left: 10px;
+    align-self: center;
 }
 
 label {
     font-size: 14px;
     color:rgb(50, 50, 50);
+    align-self: center;
 }
 
 h1 {
     margin-bottom: 18px;
+    margin-top: 0;
     font-size: 24px;
     font-weight: 500;
 }
@@ -94,13 +86,30 @@ input:focus {
     margin-top: 1.5vw;
 }
 
-.popup{
+legend{
+    font-family: cursive;
+}
+
+button {
+    height: auto;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: rgb(24 31 61 / 89%);
+    color: white;
+    border: none rgb(47, 206, 255);
+    padding: 8px 8px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.form-container{
     gap: 0;
     top: 50%;
     left: 50%;
     color: black;
     width: 320px;
-    margin: auto;
+    margin: 1rem auto auto;
     display: flex;
     padding: 1rem;
     position: fixed;
@@ -112,25 +121,16 @@ input:focus {
     box-shadow: 10px 10px 14px 1px rgba(72, 72, 72, 0.3);
 }
 
-button {
-    height: auto;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 800;
-    background-color: rgb(255, 47, 47);
-    color: white;
-    border: none rgb(255, 47, 47);
-    padding: 8px 8px;
-    border-radius: 5px;
-    width: fit-content;
-    height: auto;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 800;
-    background-color: rgb(255, 47, 47);
-    color: white;
-    border: none rgb(255, 47, 47);
-    padding: 8px 8px;
-    border-radius: 5px;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
+#question-container{
+    margin-bottom: 8px;
+}
+
+.radio-item-container{
+    margin-bottom: 8px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
 }

@@ -43,12 +43,12 @@ public class SignupServlet extends HttpServlet {
         // and store result of the execute() operation
         boolean registerSuccess = userService.add(user);
 
-        if(registerSuccess){
+        if (registerSuccess) {
             System.out.println("registration was successful");
             // store the new user object in the request before forwarding,
             // so it can be accessed by profile servlet and page
             request.setAttribute("user", user);
-            getServletContext().getRequestDispatcher("/profile.jsp").forward(request,response);
+            getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
         } else {
             // forward it back to the signup page with the error message
             request.setAttribute("error", "a user with this email already exists");
