@@ -7,17 +7,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bdc.firstservletapp.utils.ToJson.buildResultJSON;
+
 @WebServlet(name = "quizAPIServlet", value = "/quizAPI/*")
 public class QuizAPIServlet extends HttpServlet {
 
     public void init() {
+        System.out.println("QuizAPI servlet has been initiated");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +67,7 @@ public class QuizAPIServlet extends HttpServlet {
     }
 
     private void returnResult(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // create a string builder to store string from request body
+        // create a string builder to store string from the POST request body
         StringBuilder sb = new StringBuilder();
         // get the reader from request
         BufferedReader reader = request.getReader();
@@ -75,23 +77,16 @@ public class QuizAPIServlet extends HttpServlet {
         // finally, convert string builder data to string
         String data = sb.toString();
 
-        // print raw json string data
-        System.out.println("SB DATA STRING: " + data);
+        // build a result JSON string using the custom method in utils package
+        String outputJSON = buildResultJSON(data);
 
-        // create a list of objects from json string data
-        JSONArray jsonArray = new JSONArray(data);
-
-        // you can access each json object and it's values from the parsed json array
-        // you can also loop over it and re-construct (real) java objects
-        // into an array list by getting the values of parsed json objects
-        String output = ((JSONArray) jsonArray).getJSONObject(0).getString("name").toString();
-        System.out.println("OUTPUT FROM FIRST JSON OBJECT: " + output);
+        System.out.println("OUTPUT JSON STRING: " + outputJSON);
 
         // Write the JSON string to the response using the write method
-        response.getWriter().write("{\"success\": true}");
+        response.getWriter().write(outputJSON);
     }
 
     public void destroy() {
-        System.out.println("login servlet has been destroyed");
+        System.out.println("QuizAPI servlet has been destroyed");
     }
 }

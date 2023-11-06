@@ -25,5 +25,7 @@
     </div>
 
 </div>
+
+<div class="overlay" id="overlay"></div>
 </body>
 </html>

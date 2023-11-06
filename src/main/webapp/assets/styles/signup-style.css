@@ -12,7 +12,6 @@ body {
     min-height: 100vh;
 }
 
-
 .left-section {
     position: relative;
     display: block;
@@ -21,7 +20,6 @@ body {
     background-image: url("/assets/images/johannes-andersson-unsplash.jpg");
     background-size: cover;
     background-clip: border-box;
-
 }
 
 .image-credit {
