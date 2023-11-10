@@ -108,13 +108,13 @@ function showResult(result) {
 
                 switch (key){
                     case "questionName":
-                        key = "question";
+                        key = "";
                         break;
                     case "answer":
-                        key = "correct answer";
+                        key = "correct answer: ";
                         break;
                     case "userAnswer":
-                        key = "your answer"
+                        key = "your answer: "
                         break
                     default:
                         console.log("unknown question field");
@@ -122,7 +122,7 @@ function showResult(result) {
 
                 // create a result field and apply red color for wrong answers
                 const textColor = key === "your answer" ? "red" : "black";
-                thisResult.innerHTML += `<p style="color:${textColor};">${key + " : " + value}</p>`;
+                thisResult.innerHTML += `<p style="color:${textColor};">${key + value}</p>`;
                 // append result field to the container
                 resultContainer.appendChild(thisResult);
                 popup.appendChild(resultContainer);

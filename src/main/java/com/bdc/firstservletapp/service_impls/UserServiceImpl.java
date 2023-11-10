@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
             Session session = sessionFactory.openSession();
             // start a transaction
             Transaction transaction = session.beginTransaction();
-            // save persisten object to db
+            // save persistence object to db
             session.saveOrUpdate(user);
             // store the result
             result = true;
