@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +36,8 @@ public class LoginServlet extends HttpServlet {
         // use email and password for the DB query of the authenticate method
         // and store result of the execute() operation
         boolean isAuthSuccess = userService.authenticate(email, password);
+        // get session
+        HttpSession session = request.getSession(false);
 
         if (isAuthSuccess) {
             System.out.println("auth was successful");
@@ -41,6 +45,8 @@ public class LoginServlet extends HttpServlet {
             User currentUser = userService.getOne(email, password);
             // pass the user object to the request before forwarding to the profile page
             request.setAttribute("user", currentUser);
+            // register user to session
+            session.setAttribute("user", currentUser);
             // get User list from services
             List<User> userList = userService.getAll();
             // pass the user list to the request

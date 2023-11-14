@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -43,11 +44,17 @@ public class SignupServlet extends HttpServlet {
         // and store result of the execute() operation
         boolean registerSuccess = userService.add(user);
 
+        // get session
+        HttpSession session = request.getSession(false);
+
         if (registerSuccess) {
             System.out.println("registration was successful");
             // store the new user object in the request before forwarding,
             // so it can be accessed by profile servlet and page
             request.setAttribute("user", user);
+            // store user in session for user login filtering
+            session.setAttribute("user", user);
+            // forward request and response to profile page
             getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
         } else {
             // forward it back to the signup page with the error message

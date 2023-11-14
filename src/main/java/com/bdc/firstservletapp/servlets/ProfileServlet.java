@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,12 +15,17 @@ import java.io.PrintWriter;
 public class ProfileServlet extends HttpServlet {
 
     public void init() {
+        System.out.println("profile servlet was initialized");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("a GET method was called in profileServlet");
-        // get the user object forwarded within the request
-        User currentUser = (User) request.getAttribute("user");
+
+        // get session
+        HttpSession session = request.getSession(false);
+
+        // get the user object from the session
+        User currentUser = (User) session.getAttribute("user");
 
         // build a custom error message to be displayed on the page
         StringBuilder error = new StringBuilder();
