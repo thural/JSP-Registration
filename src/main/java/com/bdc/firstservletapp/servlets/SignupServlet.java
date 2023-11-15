@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "signupServlet", value = "/signup")
 public class SignupServlet extends HttpServlet {
@@ -54,6 +55,10 @@ public class SignupServlet extends HttpServlet {
             request.setAttribute("user", user);
             // store user in session for user login filtering
             session.setAttribute("user", user);
+            // get User list from services
+            List<User> userList = userService.getAll();
+            // pass the user list to the request
+            request.setAttribute("userList", userList);
             // forward request and response to profile page
             getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
         } else {

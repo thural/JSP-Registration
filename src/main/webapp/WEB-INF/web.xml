@@ -13,10 +13,10 @@
         <url-pattern>/ExceptionHandler</url-pattern>
     </servlet-mapping>
 <!--    forward servlet type exceptions to ExceptionHandler servlet-->
-    <error-page>
-        <exception-type>jakarta.servlet.ServletException</exception-type>
-        <location>/ExceptionHandler</location>
-    </error-page>
+<!--    <error-page>-->
+<!--        <exception-type>jakarta.servlet.ServletException</exception-type>-->
+<!--        <location>/ExceptionHandler</location>-->
+<!--    </error-page>-->
 
 <!--    forward java type exceptions to 500.jsp page-->
 <!--    <error-page>-->
