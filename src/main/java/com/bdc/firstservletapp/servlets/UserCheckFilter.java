@@ -15,18 +15,21 @@ public class UserCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
+
         String loginURI = request.getContextPath() + "/login";
         String signupURI = request.getContextPath() + "/signup";
+        String profileURI = request.getContextPath() + "/profile";
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
         boolean signupRequest = request.getRequestURI().equals(signupURI);
 
         if (loggedIn || loginRequest || signupRequest) {
-            chain.doFilter(request, response);
+            if(loggedIn && (signupRequest || loginRequest)) {
+                response.sendRedirect(profileURI);
+            } else chain.doFilter(request, response);
         } else {
             response.sendRedirect(loginURI);
         }
     }
-
 }
