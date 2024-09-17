@@ -1,7 +1,7 @@
 package com.bdc.firstservletapp.servlets;
 
 import com.bdc.firstservletapp.beans.Question;
-import com.bdc.firstservletapp.utils.ToJson;
+import com.bdc.firstservletapp.utils.CustomJsonSerializer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,29 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bdc.firstservletapp.utils.ToJson.buildResultJSON;
+import static com.bdc.firstservletapp.utils.CustomJsonSerializer.formatQuizResultJSON;
 
 @WebServlet(name = "quizAPIServlet", value = "/quizAPI/*")
 public class QuizAPIServlet extends HttpServlet {
-
-    public void init() {
-        System.out.println("QuizAPI servlet has been initiated");
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // create and add question objects to the list
-        List<Question> questionList = getQuestions();
-
-        // stringify the array list to JSON format using the custom parser
-        String questionsJSON = ToJson.arrayFromQuestionList(questionList);
-
-        // set the response content type and encoding
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        // write the JSON string to the response
-        response.getWriter().write(questionsJSON);
-    }
 
     private static List<Question> getQuestions() {
         List<Question> questionList = new ArrayList<Question>();
@@ -48,6 +29,25 @@ public class QuizAPIServlet extends HttpServlet {
         return questionList;
     }
 
+    public void init() {
+        System.out.println("QuizAPI servlet has been initiated");
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // create and add question objects to the list
+        List<Question> questionList = getQuestions();
+
+        // stringify the array list to JSON format using the custom parser
+        String questionsJSON = CustomJsonSerializer.serializeList(questionList);
+
+        // set the response content type and encoding
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // write the JSON string to the response
+        response.getWriter().write(questionsJSON);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get the path info (the last part of the request path, in this case "/answers")
@@ -55,13 +55,11 @@ public class QuizAPIServlet extends HttpServlet {
         System.out.println("PATH INFO: " + pathInfo);
 
         // call a method to handle the request based on path info
-        switch (pathInfo) {
-            case "/answers":
-                returnResult(request, response);
-                break;
+        if (pathInfo.equals("/answers")) {
+            returnResult(request, response);
             // you may add your cases here for custom API requests
-            default:
-                System.out.println("unhandled request to /QuizAPI");
+        } else {
+            System.out.println("unhandled request to /QuizAPI");
         }
 
     }
@@ -78,7 +76,7 @@ public class QuizAPIServlet extends HttpServlet {
         String data = sb.toString();
 
         // build a result JSON string using the custom method in utils package
-        String outputJSON = buildResultJSON(data);
+        String outputJSON = formatQuizResultJSON(data);
 
         System.out.println("OUTPUT JSON STRING: " + outputJSON);
 

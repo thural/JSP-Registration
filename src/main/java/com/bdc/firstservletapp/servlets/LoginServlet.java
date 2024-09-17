@@ -2,7 +2,7 @@ package com.bdc.firstservletapp.servlets;
 
 import com.bdc.firstservletapp.beans.ErrorBean;
 import com.bdc.firstservletapp.models.User;
-import com.bdc.firstservletapp.service_impls.UserServiceImpl;
+import com.bdc.firstservletapp.services.service_impls.UserServiceImpl;
 import com.bdc.firstservletapp.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.Session;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +56,9 @@ public class LoginServlet extends HttpServlet {
         } else {
             System.out.println("auth was failed");
             // forward back to the login page with the error message
-            ErrorBean errObj = new ErrorBean("login error", "invalid credentials please try again");
+            ErrorBean errObj = new ErrorBean();
+            errObj.setTitle("login error");
+            errObj.setMessage("invalid credentials please try again");
             System.out.println("error object: " + errObj);
             request.setAttribute("error", errObj);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);

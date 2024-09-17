@@ -1,6 +1,9 @@
 package com.bdc.firstservletapp.beans;
 
-public class ErrorBean {
+import java.io.Serializable;
+
+public class ErrorBean implements Serializable {
+
     public String title;
     public String message;
 
@@ -12,16 +15,19 @@ public class ErrorBean {
         return message;
     }
 
-    public ErrorBean(String title, String message) {
-        this.title = title;
-        this.message = message;
-    }
-
     @Override
     public String toString() {
         return "Error{" +
                 "title='" + title + '\'' +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

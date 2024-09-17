@@ -1,7 +1,7 @@
 package com.bdc.firstservletapp.servlets;
 
 import com.bdc.firstservletapp.models.User;
-import com.bdc.firstservletapp.service_impls.UserServiceImpl;
+import com.bdc.firstservletapp.services.service_impls.UserServiceImpl;
 import com.bdc.firstservletapp.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

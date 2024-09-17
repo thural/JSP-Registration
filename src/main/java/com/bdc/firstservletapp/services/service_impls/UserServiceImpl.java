@@ -1,4 +1,4 @@
-package com.bdc.firstservletapp.service_impls;
+package com.bdc.firstservletapp.services.service_impls;
 
 import com.bdc.firstservletapp.models.User;
 import com.bdc.firstservletapp.services.UserService;

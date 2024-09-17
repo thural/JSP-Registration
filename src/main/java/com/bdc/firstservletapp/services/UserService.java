@@ -5,6 +5,7 @@ import com.bdc.firstservletapp.models.User;
 import java.util.List;
 
 public interface UserService {
+
     List<User> getAll();
 
     boolean add(User user);
@@ -16,4 +17,5 @@ public interface UserService {
     boolean authenticate(String email, String password);
 
     User getOne(String email, String password);
+
 }
