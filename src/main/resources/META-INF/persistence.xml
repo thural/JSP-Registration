@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
@@ -9,19 +9,19 @@
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/bdc_course"/>
             <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="toplink.jdbc.user" value="root"/>
-            <property name="toplink.jdbc.password" value="@dolphin888"/>
+            <property name="toplink.jdbc.password" value="@root888"/>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/bdc_course"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="@dolphin888"/>
+            <property name="hibernate.connection.password" value="@root888"/>
             <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/bdc_course"/>
             <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>
             <property name="openjpa.ConnectionUserName" value="root"/>
-            <property name="openjpa.ConnectionPassword" value="@dolphin888"/>
+            <property name="openjpa.ConnectionPassword" value="@root888"/>
             <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/bdc_course"/>
             <property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="eclipselink.jdbc.user" value="root"/>
-            <property name="eclipselink.jdbc.password" value="@dolphin888"/>
+            <property name="eclipselink.jdbc.password" value="@root888"/>
         </properties>
     </persistence-unit>
 </persistence>

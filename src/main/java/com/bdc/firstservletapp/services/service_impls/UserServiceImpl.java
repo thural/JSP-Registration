@@ -2,162 +2,106 @@ package com.bdc.firstservletapp.services.service_impls;
 
 import com.bdc.firstservletapp.models.User;
 import com.bdc.firstservletapp.services.UserService;
+import com.bdc.firstservletapp.utils.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import com.bdc.firstservletapp.utils.SessionFactoryProvider;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    @Override
-    public List<User> getAll() {
-        List<User> userList;
-        try {
-            // get session factory from the custom util package
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
-            Transaction transaction = session.beginTransaction();
-            // select and list all rows of the User table
-            String hql = "FROM User";
-            Query query = session.createQuery(hql);
-            // store the list
-            userList = query.list();
-            // commit transaction
-            transaction.commit();
-            sessionFactory.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-        return userList;
-    }
+    SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
 
     @Override
-    public boolean add(User user) {
-        boolean result = false;
-        Transaction transaction = null;
-        try {
-            // get session factory
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
-            transaction = session.beginTransaction();
-            // save the user objects
-            session.save(user);
-            // store the result
-            result = true;
-            // commit transaction
-            transaction.commit();
-            sessionFactory.close();
+    public List<User> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM User";
+            return session.createQuery(hql, User.class).getResultList();
         } catch (Exception e) {
-            // rollback in case transaction failure
-            if (transaction != null) transaction.rollback();
-            System.out.println(e.getMessage());
+            System.err.println("failed to query users: " + e.getMessage());
+            return List.of();
         }
-        return result;
+    }
+
+    public boolean addOne(User user) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(user);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            System.err.println("failed to add user: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean update(User user) {
-        boolean result = false;
-        try {
-            // get session factory
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
-            Transaction transaction = session.beginTransaction();
-            // save persistence object to db
-            session.saveOrUpdate(user);
-            // store the result
-            result = true;
-            // commit transaction
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(user);
             transaction.commit();
-            sessionFactory.close();
+            return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            System.err.println("failed to update user: " + e.getMessage());
+            return false;
         }
-        return result;
     }
 
     @Override
     public boolean deleteById(long id) {
-        boolean result = false;
-        try {
-            // get session factory
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
+        try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            // get the user from db with the specified id
             User user = session.get(User.class, id);
-            // if user exists delete the user
-            if (user != null) {
-                session.remove(user);
-                // store the result
-                result = true;
-            }
-            // commit transaction
+            if (user != null) session.remove(user);
             transaction.commit();
-            sessionFactory.close();
+            return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println("failed to delete user: " + e.getMessage());
+            return false;
         }
-        return result;
     }
 
     @Override
     public boolean authenticate(String email, String password) {
-        boolean result = false;
-        try {
-            // get session factory
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
-            Transaction transaction = session.beginTransaction();
-            // find the user using HQL matching the credentials
+        try (Session session = sessionFactory.openSession()) {
+
             String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
-            Query query = session.createQuery(hql);
-            query.setParameter("email", email);
+            Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("password", password);
-            List results = query.list();
-            // store the execution result
-            result = !results.isEmpty();
-            // commit transaction
-            transaction.commit();
-            sessionFactory.close();
+            query.setParameter("email", email);
+            User result = query.uniqueResult();
+
+            return result != null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return false;
         }
-        return result;
     }
 
     @Override
     public User getOne(String email, String password) {
-        User user = null;
-        try {
-            // get session factory
-            SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-            Session session = sessionFactory.openSession();
-            // start a transaction
-            Transaction transaction = session.beginTransaction();
-            // find the matching user using HQL query
+        try (Session session = sessionFactory.openSession()) {
+
             String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
-            Query query = session.createQuery(hql);
+            Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("email", email);
             query.setParameter("password", password);
-            // get list of the result
-            List results = query.list();
-            // store the user from the list
-            user = (User) results.get(0);
-            // commit transaction
-            transaction.commit();
-            sessionFactory.close();
+
+            return query.uniqueResult();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         }
-        return user;
     }
 }

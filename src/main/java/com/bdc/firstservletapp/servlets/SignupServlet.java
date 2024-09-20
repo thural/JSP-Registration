@@ -1,8 +1,8 @@
 package com.bdc.firstservletapp.servlets;
 
 import com.bdc.firstservletapp.models.User;
-import com.bdc.firstservletapp.services.service_impls.UserServiceImpl;
 import com.bdc.firstservletapp.services.UserService;
+import com.bdc.firstservletapp.services.service_impls.UserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +16,8 @@ import java.util.List;
 @WebServlet(name = "signupServlet", value = "/signup")
 public class SignupServlet extends HttpServlet {
 
-    public void init() {}
+    public void init() {
+    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
@@ -43,7 +44,7 @@ public class SignupServlet extends HttpServlet {
 
         // insert fields of user object as a new record into the table
         // and store result of the execute() operation
-        boolean registerSuccess = userService.add(user);
+        boolean registerSuccess = userService.addOne(user);
 
         // get session
         HttpSession session = request.getSession(false);
